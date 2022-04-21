@@ -22,3 +22,15 @@ class CategoricalCrossentropy(Loss):
             )
         negative_log = -np.log(correct_confidences)
         return negative_log
+
+    def backward(self, dvalues: npt.ArrayLike, y_true: npt.ArrayLike) -> None:
+        samples = len(dvalues)
+        labels = len(dvalues[0])
+
+        if len(y_true.shape) == 1:
+            y_true = np.eye(labels)[y_true]
+
+        self.dinputs = -y_true / dvalues
+        # Normalize gradient
+        self.dinputs = self.dinputs / samples
+

@@ -9,3 +9,7 @@ class Loss:
 
     def forward(self, y_pred: npt.ArrayLike, y_true: npt.ArrayLike) -> npt.ArrayLike:
         raise NotImplemented
+
+    def backward(self, dvalues: npt.ArrayLike, y_true: npt.ArrayLike) -> None:
+        raise NotImplemented
+

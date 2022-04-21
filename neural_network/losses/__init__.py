@@ -1,2 +1,3 @@
 from .loss import Loss
 from .categorical_crossentropy import CategoricalCrossentropy
+from .softmax_categorical_crossentropy import Softmax_CategoricalCrossentropy
