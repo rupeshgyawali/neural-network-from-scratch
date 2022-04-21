@@ -4,6 +4,7 @@ from typing import Tuple
 
 from neural_network.layers import Dense
 from neural_network.activations import ReLU, Softmax
+from neural_network.losses import CategoricalCrossentropy
 
 np.random.seed(0)
 
@@ -27,6 +28,8 @@ activation1 = ReLU()
 layer2 = Dense(3, 3)
 activation2 = Softmax()
 
+loss_function = CategoricalCrossentropy()
+
 # Forward propagation
 layer1.forward(X)
 activation1.forward(layer1.output)
@@ -34,4 +37,14 @@ activation1.forward(layer1.output)
 layer2.forward(activation1.output)
 activation2.forward(layer2.output)
 
-print(layer2.output[:5])
+print(activation2.output[:5])
+
+loss = loss_function.calculate(activation2.output, y)
+print('loss:', loss)
+
+# Accuracy
+predictions = np.argmax(activation2.output, axis=1)
+if len(y.shape) == 2:
+    y = np.argmax(y, axis=1)
+accuracy = np.mean(predictions==y)
+print('acc:', accuracy)
