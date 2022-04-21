@@ -3,6 +3,7 @@ import numpy.typing as npt
 from typing import Tuple
 
 from neural_network.layers import Dense
+from neural_network.activations import ReLU, Softmax
 
 np.random.seed(0)
 
@@ -21,10 +22,16 @@ def create_data(samples: int, classes: int) -> Tuple[npt.NDArray, npt.NDArray]:
 X, y = create_data(100, 3)
 
 layer1 = Dense(2, 3)
+activation1 = ReLU()
+
 layer2 = Dense(3, 3)
+activation2 = Softmax()
 
 # Forward propagation
 layer1.forward(X)
-layer2.forward(layer1.output)
+activation1.forward(layer1.output)
+
+layer2.forward(activation1.output)
+activation2.forward(layer2.output)
 
 print(layer2.output[:5])
